@@ -383,7 +383,7 @@ let heatmap2 = computed(() => initHeatmap(props.half + 184, props.half))
   }
   .days div {
     border-radius: 10px;
-    font-size: 1.2rem;
+    font-size: 1rem;
   }
   .days small {
     display: none;
@@ -391,20 +391,24 @@ let heatmap2 = computed(() => initHeatmap(props.half + 184, props.half))
   .day-names div {
     font-size: 1rem;
   }
+  .calendar-header {
+    padding: 5px 10px;
+  }
+  .calendar-header .title {
+    margin-left: 10px;
+  }
   .calendar-header .big {
-    font-size: 2rem;
-    margin-left: 15px;
+    font-size: 1.6rem;
   }
   .calendar-header .small {
-    font-size: 1rem;
+    font-size: 0.7rem;
   }
   .calendar-body .days {
     gap: 10px;
   }
   .calendar-header .button {
-    /* width: 35px;
-    height: 35px; */
-    font-size: 1.4rem;
+    width: 40px;
+    font-size: 1.3rem;
   }
   .heatmap {
     transform: scale(0.55);
