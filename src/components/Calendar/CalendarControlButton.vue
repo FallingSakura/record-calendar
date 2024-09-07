@@ -12,8 +12,9 @@ const props = defineProps(['icon'])
   width: 50px;
   height: 50px;
   background-color: #fff;
-  text-align: center;
-  line-height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 15px;
   font-size: 1.3rem;
   cursor: pointer;
