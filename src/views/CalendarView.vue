@@ -9,7 +9,7 @@ let status = ref(0)
 
 onMounted(() => {
   // .json() 将 JSON 字符串转换为 JS 对象
-  fetch(`https://calendarapi.fallingsakura.top/get-data`)
+  fetch(`http://localhost:5000/get-data/66e52e8b16b8b547ed19d377`)
     .then((response) => response.json()) // json
     .then((data) => {
       dataStore.value = new Map(Object.entries(data))
@@ -17,8 +17,23 @@ onMounted(() => {
     .then(() => {})
     .catch((error) => console.log('Error fetching data:', error))
 
-  // dataStore.value = new Map(Object.entries(JSONData));
 })
+
+function updateData(key, value) {
+  fetch(`http://localhost:5000/update-data/66e52e8b16b8b547ed19d377`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      "date": key,
+      "value": value
+    })
+  })
+    .then((res) => res.text())
+    .then((data) => data)
+    .catch((error) => console.log('Error:', error))
+}
 // Fri Aug 23 2024 13:55:58 GMT+0800 (China Standard Time)
 
 const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
@@ -178,21 +193,8 @@ function getBackGroundColor(index) {
 }
 function getFontColor(index) {
   const timeIndex = getDateKey(index)
-  if (timeIndex === getDateKey(new Date())) return '#fff'
-  if (!dataStore.value.has(timeIndex)) return
+  if (!dataStore.value.has(timeIndex) || dataStore.value.get(timeIndex) === null) return
   return '#fff'
-}
-function updateData(key, value) {
-  fetch(`https://calendarapi.fallingsakura.top/update-data`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(Object.fromEntries([[`${key}`, value]]))
-  })
-    .then((res) => res.text())
-    .then((data) => data)
-    .catch((error) => console.log('Error:', error))
 }
 </script>
 
