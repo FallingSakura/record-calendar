@@ -1,8 +1,10 @@
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import axios from 'axios'
 const EMAIL = 'Email'
 const PASSWORD = 'Password'
+const router = useRouter()
 
 const email = ref('')
 const password = ref('')
@@ -16,7 +18,7 @@ const login = async () => {
     })
     const token = response.data.token
     localStorage.setItem('token', token)
-
+    router.push('/')
     alert('Login Succesfully!')
   } catch (err) {
     console.error('Login Error:', err)

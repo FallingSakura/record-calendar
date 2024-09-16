@@ -11,14 +11,14 @@ axios.defaults.baseURL = 'http://localhost:5000'
 
 onMounted(() => {
   // .json() 将 JSON 字符串转换为 JS 对象
-  fetch(`http://localhost:5000/get-data/66e52e8b16b8b547ed19d377`)
-    .then((response) => response.json()) // json
-    .then((data) => {
-      dataStore.value = new Map(Object.entries(data))
-    })
-    .then(() => {})
-    .catch((error) => console.log('Error fetching data:', error))
-
+  // fetch(`http://localhost:5000/get-data/66e52e8b16b8b547ed19d377`)
+  //   .then((response) => response.json()) // json
+  //   .then((data) => {
+  //     dataStore.value = new Map(Object.entries(data))
+  //   })
+  //   .then(() => {})
+  //   .catch((error) => console.log('Error fetching data:', error))
+  getUserData()
 })
 
 async function getUserData() {
@@ -29,7 +29,8 @@ async function getUserData() {
         Authorization: `Bearer ${token}`
       }
     })
-    dataStore.value = new Map(Object.entries(res.data.message))
+    console.log(res)
+    dataStore.value = new Map(Object.entries(res.data))
   } catch (err) {
     console.error('Failed to get user data', err)
   }
