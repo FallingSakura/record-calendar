@@ -9,6 +9,16 @@ const router = createRouter({
       name: 'home',
       component: HomeView
     },
+    {
+      path: '/login',
+      name: 'calendar-login',
+      component: () => import('../views/CalendarLoginView.vue')
+    },
+    {
+      path: '/rigister',
+      name: 'calendar-rigister',
+      component: () => import('../views/CalendarRigisterView.vue')
+    }
   ]
 })
 

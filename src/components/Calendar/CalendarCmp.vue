@@ -245,31 +245,6 @@ let heatmap2 = computed(() => initHeatmap(props.half + 184, props.half))
 .last-month {
   opacity: 0;
 }
-.blur-enter-to,
-.blur-leave-from {
-  filter: blur(0px);
-}
-.blur-enter-active,
-.blur-leave-active {
-  transition: filter 0.2s ease;
-}
-.blur-enter-from,
-.blur-leave-to {
-  filter: blur(30px);
-}
-
-.fade-enter-to,
-.fade-leave-from {
-  opacity: 1;
-}
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.2s ease;
-}
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
 
 .block {
   position: relative;

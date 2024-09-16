@@ -1,6 +1,8 @@
 <script setup>
 import ControlButton from './CalendarControlButton.vue'
+import { useRouter } from 'vue-router'
 import { computed } from 'vue'
+const router = useRouter()
 const props = defineProps(['reset', 'status', 'toggleStatus'])
 const buttons = {
   0: {
@@ -12,7 +14,14 @@ const buttons = {
       return props.status === 0 ? 'fa-solid fa-toggle-off' : 'fa-solid fa-toggle-on'
     }),
     fn: props.toggleStatus
+  },
+  2: {
+    icon: 'fa-solid fa-user',
+    fn: login
   }
+}
+function login() {
+  router.push('/login');
 }
 </script>
 <template>

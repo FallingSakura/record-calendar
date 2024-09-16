@@ -1,9 +1,11 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterView } from 'vue-router'
 </script>
 
 <template>
-  <RouterView />
+  <transition name="change" mode="out-in">
+    <RouterView />
+  </transition>
 </template>
 
 <style>
@@ -15,4 +17,43 @@ import { RouterLink, RouterView } from 'vue-router'
 ::-webkit-scrollbar {
   display: none;
 }
+.blur-enter-to,
+.blur-leave-from {
+  filter: blur(0px);
+}
+.blur-enter-active,
+.blur-leave-active {
+  transition: filter 0.2s ease;
+}
+.blur-enter-from,
+.blur-leave-to {
+  filter: blur(30px);
+}
+
+.change-enter-to,
+.change-leave-from {
+  filter: blur(0px);
+}
+.change-enter-active,
+.blur-leave-active {
+  transition: filter 0.5s ease;
+}
+.change-enter-from,
+.change-leave-to {
+  filter: blur(50px);
+}
+
+.fade-enter-to,
+.fade-leave-from {
+  opacity: 1;
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s ease;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
 </style>
