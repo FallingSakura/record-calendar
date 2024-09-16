@@ -4,6 +4,7 @@ import axios from 'axios'
 import Calendar from '../components/Calendar/CalendarCmp.vue'
 import ControlPanel from '../components/Calendar/CalendarControlPanel.vue'
 axios.defaults.baseURL = 'https://calendarapi.fallingsakura.top'
+// axios.defaults.baseURL = 'http://localhost:5000'
 
 const date = ref(new Date())
 let dataStore = ref(new Map())
@@ -30,17 +31,19 @@ async function getUserData() {
 async function updateData(key, value) {
   try {
     const token = localStorage.getItem('token')
-    await axios.put('/update-data', {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
+    await axios.put(
+      '/update-data',
+      {
+        date: key,
+        value: value
       },
-      body: JSON.stringify({
-        "date": key,
-        "value": value
-      })
-    })
-  } catch(err) {
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    )
+  } catch (err) {
     console.error(err)
   }
 }
@@ -90,7 +93,11 @@ const daysInMonth = computed(() => {
 })
 
 let half = computed(() => {
-  if ((year.value % 4 === 0 && year.value % 100 !== 0) || year.value % 400 === 0) return 182
+  if (
+    (year.value % 4 === 0 && year.value % 100 !== 0) ||
+    year.value % 400 === 0
+  )
+    return 182
   else return 181
 })
 
@@ -110,7 +117,10 @@ function isToday(date) {
 }
 function getDateKey(dateEl) {
   const day = dateEl instanceof Date ? dateEl : daysInMonth.value[dateEl].date
-  return `${day.getFullYear()}${String(day.getMonth() + 1).padStart(2, '0')}${String(day.getDate()).padStart(2, '0')}`
+  return `${day.getFullYear()}${String(day.getMonth() + 1).padStart(
+    2,
+    '0'
+  )}${String(day.getDate()).padStart(2, '0')}`
 }
 
 function prevMonth() {
@@ -203,14 +213,22 @@ function getBackGroundColor(index) {
 }
 function getFontColor(index) {
   const timeIndex = getDateKey(index)
-  if (!dataStore.value.has(timeIndex) || dataStore.value.get(timeIndex) === null) return
+  if (
+    !dataStore.value.has(timeIndex) ||
+    dataStore.value.get(timeIndex) === null
+  )
+    return
   return '#fff'
 }
 </script>
 
 <template>
   <div class="body">
-    <ControlPanel :reset="reset" :status="status" :toggleStatus="toggleStatus" />
+    <ControlPanel
+      :reset="reset"
+      :status="status"
+      :toggleStatus="toggleStatus"
+    />
     <Calendar
       :monthNames="monthNames"
       :month="month"
