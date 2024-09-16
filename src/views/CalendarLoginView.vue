@@ -8,11 +8,11 @@ const router = useRouter()
 
 const email = ref('')
 const password = ref('')
-// axios.defaults.baseURL = 'http://localhost:5000'
+axios.defaults.baseURL = 'https://calendarapi.fallingsakura.top'
 
 const login = async () => {
   try {
-    const response = await axios.post('http://localhost:5000/login', {
+    const response = await axios.post('/login', {
       email: email.value,
       password: password.value
     })
