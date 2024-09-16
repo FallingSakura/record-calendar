@@ -1,11 +1,13 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
+import axios from 'axios'
 import Calendar from '../components/Calendar/CalendarCmp.vue'
 import ControlPanel from '../components/Calendar/CalendarControlPanel.vue'
 
 const date = ref(new Date())
 let dataStore = ref(new Map())
 let status = ref(0)
+axios.defaults.baseURL = 'http://localhost:5000'
 
 onMounted(() => {
   // .json() 将 JSON 字符串转换为 JS 对象
@@ -18,6 +20,20 @@ onMounted(() => {
     .catch((error) => console.log('Error fetching data:', error))
 
 })
+
+async function getUserData() {
+  try {
+    const token = localStorage.getItem('token')
+    const res = await axios.get('/get-data', {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+    dataStore.value = new Map(Object.entries(res.data.message))
+  } catch (err) {
+    console.error('Failed to get user data', err)
+  }
+}
 
 function updateData(key, value) {
   fetch(`http://localhost:5000/update-data/66e52e8b16b8b547ed19d377`, {

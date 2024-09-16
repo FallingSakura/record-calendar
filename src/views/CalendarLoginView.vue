@@ -1,27 +1,52 @@
 <script setup>
-// import axios from 'axios'
-const email = 'Email'
-const password = 'Password'
+import { ref } from 'vue'
+import axios from 'axios'
+const EMAIL = 'Email'
+const PASSWORD = 'Password'
+
+const email = ref('')
+const password = ref('')
+// axios.defaults.baseURL = 'http://localhost:5000'
+
+const login = async () => {
+  try {
+    const response = await axios.post('http://localhost:5000/login', {
+      email: email.value,
+      password: password.value
+    })
+    const token = response.data.token
+    localStorage.setItem('token', token)
+
+    alert('Login Succesfully!')
+  } catch (err) {
+    console.error('Login Error:', err)
+    alert('Failed to Login.')
+  } finally {
+    email.value = ''
+    password.value = ''
+  }
+}
+
 </script>
 <template>
   <div class="body">
     <div class="container">
       <h1>Calendar<br>Login</h1>
-      <form class="form">
+      <form @submit.prevent="login" class="form">
         <div class="form-control">
-          <input id="email" type="text" required>
+          <input id="email" type="text" v-model="email" required>
           <label for="email">
-            <span v-for="(letter, index) in email" :key="index" :style="{ '--i': index }">{{ letter }}</span>
+            <span v-for="(letter, index) in EMAIL" :key="index" :style="{ '--i': index }">{{ letter }}</span>
           </label>
         </div>
         <div class="form-control">
-          <input id="password" type="password" required>
+          <input id="password" type="password" v-model="password" required>
           <label for="password">
-            <span v-for="(letter, index) in password" :key="index" :style="{ '--i': index }">{{ letter }}</span>
+            <span v-for="(letter, index) in PASSWORD" :key="index" :style="{ '--i': index }">{{ letter }}</span>
           </label>
         </div>
         <button type="submit" class="btn">Login</button>
-        <p class="text">Don't have an account? <router-link to="/calendar/register">Register</router-link></p>
+        <p class="text">Don't have an account? <router-link to="/register">Register</router-link></p>
       </form>
     </div>
   </div>
@@ -45,7 +70,7 @@ const password = 'Password'
   background-color: #ffffff24;
   backdrop-filter: blur(50px);
   border-radius: 15px;
-  border: 2px solid #8dc9cd8d;
+  border: 1px solid #8dc9cd8d;
   color: #fff;
   display: flex;
   flex-direction: column;
@@ -66,7 +91,10 @@ const password = 'Password'
 
 .container a {
   text-decoration: none;
-  color: rgb(172, 228, 247);
+  color: #ace4f7;
+}
+.container a:hover {
+  color:  #86e1ff;
 }
 .btn {
   cursor: pointer;
@@ -84,6 +112,10 @@ const password = 'Password'
   border-radius: 10px;
   font-size: 1.4rem;
   letter-spacing: 2px;
+  transition: all 0.3s ease;
+}
+.btn:hover {
+  filter: brightness(1.1)
 }
 
 .btn:focus {
@@ -117,7 +149,8 @@ const password = 'Password'
   border-bottom: 2px #fff solid;
   display: block;
   width: 100%;
-  padding: 15px 0;
+  padding: 15px 0 12px;
+  border-radius: 2px;
   font-size: 18px;
   color: #fff;
   position: relative;
@@ -132,13 +165,13 @@ input:-internal-autofill-selected {
 .form-control input:focus,
 .form-control input:valid {
   outline: 0;
-  border-bottom-color: lightblue;
+  border-bottom-color: #afe7eb;
 }
 
 .form-control label {
   position: absolute;
   top: 15px;
-  left: 0;
+  left: 3px;
   pointer-events: none;
 }
 
@@ -153,7 +186,7 @@ input:-internal-autofill-selected {
 
 .form-control input:focus + label span,
 .form-control input:valid + label span {
-  color: lightblue;
+  color: #afe7eb;
   transform: translateY(-30px);
 }
 

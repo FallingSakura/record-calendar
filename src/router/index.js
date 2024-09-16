@@ -15,9 +15,9 @@ const router = createRouter({
       component: () => import('../views/CalendarLoginView.vue')
     },
     {
-      path: '/rigister',
+      path: '/register',
       name: 'calendar-rigister',
-      component: () => import('../views/CalendarRigisterView.vue')
+      component: () => import('../views/CalendarRegisterView.vue')
     }
   ]
 })

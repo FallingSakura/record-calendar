@@ -3,9 +3,11 @@ import { RouterView } from 'vue-router'
 </script>
 
 <template>
-  <transition name="change" mode="out-in">
-    <RouterView />
-  </transition>
+  <router-view v-slot="{ Component }">
+    <transition mode="out-in" name="change">
+      <component :is="Component" />
+    </transition>
+  </router-view>
 </template>
 
 <style>
@@ -17,6 +19,20 @@ import { RouterView } from 'vue-router'
 ::-webkit-scrollbar {
   display: none;
 }
+
+.change-enter-to,
+.change-leave-from {
+  filter: blur(0px);
+}
+.change-enter-active,
+.change-leave-active {
+  transition: filter 0.3s ease;
+}
+.change-enter-from,
+.change-leave-to {
+  filter: blur(20px);
+}
+
 .blur-enter-to,
 .blur-leave-from {
   filter: blur(0px);
@@ -28,19 +44,6 @@ import { RouterView } from 'vue-router'
 .blur-enter-from,
 .blur-leave-to {
   filter: blur(30px);
-}
-
-.change-enter-to,
-.change-leave-from {
-  filter: blur(0px);
-}
-.change-enter-active,
-.blur-leave-active {
-  transition: filter 0.5s ease;
-}
-.change-enter-from,
-.change-leave-to {
-  filter: blur(50px);
 }
 
 .fade-enter-to,
@@ -55,5 +58,4 @@ import { RouterView } from 'vue-router'
 .fade-leave-to {
   opacity: 0;
 }
-
 </style>
