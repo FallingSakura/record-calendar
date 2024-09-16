@@ -3,11 +3,11 @@ import { ref, computed, onMounted } from 'vue'
 import axios from 'axios'
 import Calendar from '../components/Calendar/CalendarCmp.vue'
 import ControlPanel from '../components/Calendar/CalendarControlPanel.vue'
+axios.defaults.baseURL = 'https://calendarapi.fallingsakura.top'
 
 const date = ref(new Date())
 let dataStore = ref(new Map())
 let status = ref(0)
-axios.defaults.baseURL = 'https://calendarapi.fallingsakura.top:5000'
 
 onMounted(() => {
   getUserData()
@@ -21,27 +21,28 @@ async function getUserData() {
         Authorization: `Bearer ${token}`
       }
     })
-    console.log(res)
     dataStore.value = new Map(Object.entries(res.data))
   } catch (err) {
     console.error('Failed to get user data', err)
   }
 }
 
-function updateData(key, value) {
-  fetch(`http://localhost:5000/update-data/66e52e8b16b8b547ed19d377`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      "date": key,
-      "value": value
+async function updateData(key, value) {
+  try {
+    const token = localStorage.getItem('token')
+    await axios.put('/update-data', {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        "date": key,
+        "value": value
+      })
     })
-  })
-    .then((res) => res.text())
-    .then((data) => data)
-    .catch((error) => console.log('Error:', error))
+  } catch(err) {
+    console.error(err)
+  }
 }
 // Fri Aug 23 2024 13:55:58 GMT+0800 (China Standard Time)
 
