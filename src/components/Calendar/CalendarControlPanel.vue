@@ -2,6 +2,9 @@
 import ControlButton from './CalendarControlButton.vue'
 import { useRouter } from 'vue-router'
 import { computed } from 'vue'
+import { useAuthStore } from '@/stores/authStore';
+const authStore = useAuthStore()
+authStore.initialize()
 const router = useRouter()
 const props = defineProps(['reset', 'status', 'toggleStatus'])
 const buttons = {
@@ -17,10 +20,14 @@ const buttons = {
   },
   2: {
     icon: 'fa-solid fa-user',
-    fn: login
+    fn: loginout
   }
 }
-function login() {
+function loginout() {
+  if (authStore.isAuthenticated) {
+    alert('Logged In')
+    return
+  }
   router.push('/login');
 }
 </script>

@@ -1,15 +1,19 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { useAuthStore } from '@/stores/authStore';
 import axios from 'axios'
 const EMAIL = 'Email'
 const PASSWORD = 'Password'
 const router = useRouter()
+const authStore = useAuthStore()
 
+let isReadonly = ref(true)
 const email = ref('')
 const password = ref('')
-axios.defaults.baseURL = 'https://calendarapi.fallingsakura.top'
-// axios.defaults.baseURL = 'http://localhost:5000'
+// axios.defaults.baseURL = 'https://calendarapi.fallingsakura.top'
+axios.defaults.baseURL = 'http://localhost:5000'
+
 
 const login = async () => {
   try {
@@ -18,7 +22,8 @@ const login = async () => {
       password: password.value
     })
     const token = response.data.token
-    localStorage.setItem('token', token)
+    authStore.login(token)
+    // localStorage.setItem('token', token)
     router.push('/')
     alert('Login Succesfully!')
   } catch (err) {
@@ -29,27 +34,39 @@ const login = async () => {
     password.value = ''
   }
 }
-
 </script>
 <template>
   <div class="body">
     <div class="container">
-      <h1>Calendar<br>Login</h1>
+      <h1>Calendar<br />Login</h1>
       <form @submit.prevent="login" class="form">
         <div class="form-control">
-          <input id="email" type="text" v-model="email" required>
+          <input id="email" type="text" :readonly="isReadonly" @focus="isReadonly = false" v-model="email" required />
           <label for="email">
-            <span v-for="(letter, index) in EMAIL" :key="index" :style="{ '--i': index }">{{ letter }}</span>
+            <span
+              v-for="(letter, index) in EMAIL"
+              :key="index"
+              :style="{ '--i': index }"
+              >{{ letter }}</span
+            >
           </label>
         </div>
         <div class="form-control">
-          <input id="password" type="password" v-model="password" required>
+          <input id="password" type="password" :readonly="isReadonly" @focus="isReadonly = false" v-model="password" required />
           <label for="password">
-            <span v-for="(letter, index) in PASSWORD" :key="index" :style="{ '--i': index }">{{ letter }}</span>
+            <span
+              v-for="(letter, index) in PASSWORD"
+              :key="index"
+              :style="{ '--i': index }"
+              >{{ letter }}</span
+            >
           </label>
         </div>
         <button type="submit" class="btn">Login</button>
-        <p class="text">Don't have an account? <router-link to="/register">Register</router-link></p>
+        <p class="text">
+          Don't have an account?
+          <router-link to="/register">Register</router-link>
+        </p>
       </form>
     </div>
   </div>
@@ -97,14 +114,14 @@ const login = async () => {
   color: #ace4f7;
 }
 .container a:hover {
-  color:  #86e1ff;
+  color: #86e1ff;
 }
 .btn {
   cursor: pointer;
   user-select: none;
   display: inline-block;
   width: 100%;
-  background: #2980B9;
+  background: #2980b9;
   margin-top: 40px;
   padding: 15px;
   font-family: inherit;
@@ -118,7 +135,7 @@ const login = async () => {
   transition: all 0.3s ease;
 }
 .btn:hover {
-  filter: brightness(1.1)
+  filter: brightness(1.1);
 }
 
 .btn:focus {
@@ -155,13 +172,13 @@ const login = async () => {
   padding: 15px 0 12px;
   border-radius: 2px;
   font-size: 18px;
-  color: #fff;
+  color: white;
   position: relative;
   z-index: 100;
 }
 input:-internal-autofill-previewed,
 input:-internal-autofill-selected {
-  -webkit-text-fill-color: #FFFFFF !important;
+  -webkit-text-fill-color: #ffffff !important;
   transition: background-color 5000s ease-in-out 0s !important;
 }
 
@@ -192,5 +209,4 @@ input:-internal-autofill-selected {
   color: #afe7eb;
   transform: translateY(-30px);
 }
-
 </style>
