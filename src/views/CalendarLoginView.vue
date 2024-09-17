@@ -11,8 +11,8 @@ const authStore = useAuthStore()
 let isReadonly = ref(true)
 const email = ref('')
 const password = ref('')
-// axios.defaults.baseURL = 'https://calendarapi.fallingsakura.top'
-axios.defaults.baseURL = 'http://localhost:5000'
+axios.defaults.baseURL = 'https://calendarapi.fallingsakura.top'
+// axios.defaults.baseURL = 'http://localhost:5000'
 
 
 const login = async () => {
