@@ -19,13 +19,15 @@ const buttons = {
     fn: props.toggleStatus
   },
   2: {
-    icon: 'fa-solid fa-user',
+    icon: computed(() => authStore.isAuthenticated ? 'fa-solid fa-right-from-bracket': 'fa-solid fa-user'),
     fn: loginout
   }
 }
 function loginout() {
   if (authStore.isAuthenticated) {
-    alert('Logged In')
+    authStore.logout()
+    router.replace('/')
+    router.go(0)
     return
   }
   router.push('/login');

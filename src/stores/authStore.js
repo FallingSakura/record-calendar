@@ -17,7 +17,7 @@ export const useAuthStore = defineStore('auth', {
     logout() {
       this.token = null
       this.isLoggedIn = false
-      localStoreage.removeItem('token')
+      localStorage.removeItem('token')
     },
     initialize() {
       const token = localStorage.getItem('token')
