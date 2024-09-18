@@ -3,6 +3,7 @@ import { ref, computed, onMounted } from 'vue'
 import axios from 'axios'
 import Calendar from '../components/Calendar/CalendarCmp.vue'
 import ControlPanel from '../components/Calendar/CalendarControlPanel.vue'
+import UserPanel from '../components/Calendar/CalendarUserPanel.vue'
 
 const date = ref(new Date())
 let dataStore = ref(new Map())
@@ -30,6 +31,7 @@ async function getUserData() {
 async function updateData(key, value) {
   try {
     const token = localStorage.getItem('token')
+    if (!token) return
     await axios.put(
       '/update-data',
       {
@@ -223,11 +225,14 @@ function getFontColor(index) {
 
 <template>
   <div class="body">
-    <ControlPanel
-      :reset="reset"
-      :status="status"
-      :toggleStatus="toggleStatus"
-    />
+    <div class="container">
+      <!-- <UserPanel /> -->
+      <ControlPanel
+        :reset="reset"
+        :status="status"
+        :toggleStatus="toggleStatus"
+      />
+    </div>
     <Calendar
       :monthNames="monthNames"
       :month="month"
