@@ -21,7 +21,7 @@
 
 **Demo:**
 
-![](https://falling-sakura1-1316699389.cos.ap-nanjing.myqcloud.com/image/202409181424723.webp)
+![](https://cdn.jsdelivr.net/gh/FallingSakura/Source@main/img/202409181447467.webp)
 
 前端使用 Vue3，后端使用 Express，数据库使用 MongoDB。
 
