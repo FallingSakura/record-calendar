@@ -5,6 +5,7 @@ import { useAuthStore } from '../stores/authStore'
 
 function isAuthenticated() {
   const authStore = useAuthStore()
+  authStore.initialize()
   return authStore.isAuthenticated
 }
 
@@ -18,7 +19,7 @@ const routes = [
     path: '/login',
     name: 'calendar-login',
     component: () => import('../views/CalendarLoginView.vue'),
-    meta: { requiresAuth: true }
+    meta: { requiresGuest: true }
   },
   {
     path: '/register',
@@ -29,11 +30,11 @@ const routes = [
   {
     path: '/profile',
     name: 'profile',
-    meta: { requiresGuest: true },
     children: [
       {
         path: 'changepassword',
-        component: () => import('../views/ChangePassword.vue')
+        component: () => import('../views/ChangePassword.vue'),
+        meta: { requiresAuth: true },
       }
     ]
   }
@@ -47,6 +48,7 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (!isAuthenticated()) {
+      alert('haha')
       next({ path: '/' })
     } else {
       next()

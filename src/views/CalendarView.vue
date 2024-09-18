@@ -15,6 +15,7 @@ onMounted(() => {
 async function getUserData() {
   try {
     const token = localStorage.getItem('token')
+    if (!token) return
     const res = await axios.get('/get-data', {
       headers: {
         Authorization: `Bearer ${token}`

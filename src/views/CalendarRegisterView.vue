@@ -1,7 +1,6 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { useAuthStore } from '@/stores/authStore';
 import axios from 'axios'
 const EMAIL = 'Email'
 const NAME = 'Name'
@@ -11,6 +10,15 @@ const email = ref('')
 const password = ref('')
 const name = ref('')
 const repeat = ref('')
+const isReadonly = ref(true)
+const router = useRouter()
+
+function clear() {
+  email.value = ''
+  password.value = ''
+  name.value = ''
+  repeat.value = ''
+}
 
 const register = async () => {
   try {
@@ -25,8 +33,13 @@ const register = async () => {
       email: email.value,
       password: password.value
     })
+    console.log("Response: ", response)
+    router.push('/login')
+    alert('Register Successfully!')
   } catch (err) {
     console.error(err)
+  } finally {
+    clear()
   }
 }
 </script>

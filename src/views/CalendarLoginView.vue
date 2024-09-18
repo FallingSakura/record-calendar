@@ -8,10 +8,9 @@ const PASSWORD = 'Password'
 const router = useRouter()
 const authStore = useAuthStore()
 
-let isReadonly = ref(true)
+const isReadonly = ref(true)
 const email = ref('')
 const password = ref('')
-
 
 const login = async () => {
   try {
@@ -21,7 +20,6 @@ const login = async () => {
     })
     const token = response.data.token
     authStore.login(token)
-    // localStorage.setItem('token', token)
     router.push('/')
     alert('Login Succesfully!')
   } catch (err) {
