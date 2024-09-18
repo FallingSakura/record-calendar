@@ -3,8 +3,6 @@ import { ref, computed, onMounted } from 'vue'
 import axios from 'axios'
 import Calendar from '../components/Calendar/CalendarCmp.vue'
 import ControlPanel from '../components/Calendar/CalendarControlPanel.vue'
-axios.defaults.baseURL = 'https://calendarapi.fallingsakura.top'
-// axios.defaults.baseURL = 'http://localhost:5000'
 
 const date = ref(new Date())
 let dataStore = ref(new Map())

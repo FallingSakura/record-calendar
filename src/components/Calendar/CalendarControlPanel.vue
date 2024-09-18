@@ -1,8 +1,8 @@
 <script setup>
 import ControlButton from './CalendarControlButton.vue'
 import { useRouter } from 'vue-router'
-import { computed } from 'vue'
-import { useAuthStore } from '@/stores/authStore';
+import { computed, ref } from 'vue'
+import { useAuthStore } from '@/stores/authStore'
 const authStore = useAuthStore()
 authStore.initialize()
 const router = useRouter()
@@ -10,17 +10,29 @@ const props = defineProps(['reset', 'status', 'toggleStatus'])
 const buttons = {
   0: {
     icon: 'fa-solid fa-location-crosshairs',
-    fn: props.reset
+    fn: props.reset,
+    name: 'Locate',
+    hover: ref(false)
   },
   1: {
     icon: computed(() => {
-      return props.status === 0 ? 'fa-solid fa-toggle-off' : 'fa-solid fa-toggle-on'
+      return props.status === 0
+        ? 'fa-solid fa-toggle-off'
+        : 'fa-solid fa-toggle-on'
     }),
-    fn: props.toggleStatus
+    fn: props.toggleStatus,
+    name: 'HeatMap',
+    hover: ref(false)
   },
   2: {
-    icon: computed(() => authStore.isAuthenticated ? 'fa-solid fa-right-from-bracket': 'fa-solid fa-user'),
-    fn: loginout
+    icon: computed(() =>
+      authStore.isAuthenticated
+        ? 'fa-solid fa-right-from-bracket'
+        : 'fa-solid fa-user'
+    ),
+    fn: loginout,
+    name: computed(() => (authStore.isAuthenticated ? 'Logout' : 'Login')),
+    hover: ref(false)
   }
 }
 function loginout() {
@@ -30,7 +42,7 @@ function loginout() {
     router.go(0)
     return
   }
-  router.push('/login');
+  router.push('/login')
 }
 </script>
 <template>
@@ -40,7 +52,19 @@ function loginout() {
       v-for="(button, index) in buttons"
       :key="index"
       :icon="typeof button.icon === `string` ? button.icon : button.icon.value"
+      :name="button.name"
       @click="button.fn"
+      @mouseover="
+        () => {
+          button.hover.value = true
+        }
+      "
+      @mouseleave="
+        () => {
+          button.hover.value = false
+        }
+      "
+      :isHover="button.hover.value"
     />
   </div>
 </template>
@@ -53,13 +77,13 @@ function loginout() {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding: 0 30px;
+  padding: 0 18px;
   margin-top: 5vh;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
 .control-button {
-  margin-right: 20px;
+  margin-right: 16px;
 }
 
 .control-button i {
