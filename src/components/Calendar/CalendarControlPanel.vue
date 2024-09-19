@@ -11,7 +11,7 @@ const buttons = {
   0: {
     icon: 'fa-solid fa-location-crosshairs',
     fn: props.reset,
-    name: 'Locate',
+    name: 'Today',
     hover: ref(false)
   },
   1: {
