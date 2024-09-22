@@ -28,8 +28,8 @@ const buttons = {
     icon: computed(() =>
       authStore.isAuthenticated
         ? 'fa-solid fa-right-from-bracket'
-        : 'fa-solid fa-user'
-    ),
+        :'fa-solid fa-user'
+    ), 
     fn: loginout,
     name: computed(() => (authStore.isAuthenticated ? 'Logout' : 'Login')),
     hover: ref(false)

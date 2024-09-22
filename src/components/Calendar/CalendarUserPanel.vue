@@ -2,9 +2,6 @@
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
 
-onMounted(() => {
-  
-})
 
 </script>
 <template>

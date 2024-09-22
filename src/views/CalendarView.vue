@@ -4,6 +4,10 @@ import axios from 'axios'
 import Calendar from '../components/Calendar/CalendarCmp.vue'
 import ControlPanel from '../components/Calendar/CalendarControlPanel.vue'
 import UserPanel from '../components/Calendar/CalendarUserPanel.vue'
+import { useAuthStore } from '@/stores/authStore'
+import { useRouter } from 'vue-router'
+const authStore = useAuthStore()
+const router = useRouter()
 
 const date = ref(new Date())
 let dataStore = ref(new Map())
@@ -13,10 +17,26 @@ onMounted(() => {
   getUserData()
 })
 
+function isTokenExpired(token) {
+  const payloadBase64 = token.split('.')[1]
+  const payload = JSON.parse(atob(payloadBase64))
+  const currentTime = Math.floor(Date.now() / 1000)
+  return payload.exp < currentTime
+}
+function authorize(token) {
+  if (isTokenExpired(token)) {
+    authStore.logout()
+    router.replace('/')
+    router.go(0)
+    return false;
+  }
+  else return true
+}
+
 async function getUserData() {
   try {
     const token = localStorage.getItem('token')
-    if (!token) return
+    if (!token || !authorize(token)) return
     const res = await axios.get('/get-data', {
       headers: {
         Authorization: `Bearer ${token}`
@@ -31,7 +51,7 @@ async function getUserData() {
 async function updateData(key, value) {
   try {
     const token = localStorage.getItem('token')
-    if (!token) return
+    if (!token || !authorize(token)) return
     await axios.put(
       '/update-data',
       {
