@@ -2,9 +2,11 @@
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
 
-// onMounted(() => {
-//   axios.get('/get-data', )
-// })
+onMounted(() => {
+  axios.get('/get/avatar', () => {
+    
+  })
+})
 
 </script>
 <template>
