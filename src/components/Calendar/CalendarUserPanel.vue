@@ -2,6 +2,9 @@
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
 
+onMounted(() => {
+  axios.get('/get-data', )
+})
 
 </script>
 <template>

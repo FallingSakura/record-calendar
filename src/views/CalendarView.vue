@@ -26,8 +26,7 @@ function isTokenExpired(token) {
 function authorize(token) {
   if (isTokenExpired(token)) {
     authStore.logout()
-    router.replace('/')
-    router.go(0)
+    alert('Token Expired! You\'re Logout now.')
     return false;
   }
   else return true
@@ -214,7 +213,7 @@ function getBackGroundColor(index) {
       color.value = '#45b139'
       break
     case 3:
-      color.value = '#1fe01f'
+      color.value = '#62e23b'
       break
     case 0:
       break
