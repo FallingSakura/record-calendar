@@ -207,13 +207,13 @@ function getBackGroundColor(index) {
   const color = ref('')
   switch (dataStore.value.get(timeIndex)) {
     case 1:
-      color.value = '#0dbf8c'
+      color.value = '#0bbd92'
       break
     case 2:
-      color.value = '#45b139'
+      color.value = '#2eb84d'
       break
     case 3:
-      color.value = '#62e23b'
+      color.value = '#3bd115'
       break
     case 0:
       break
@@ -224,7 +224,7 @@ function getBackGroundColor(index) {
       color.value = '#34506a'
       break
     case -3:
-      color.value = '#1b232a'
+      color.value = '#122d46'
       break
     default:
       break
