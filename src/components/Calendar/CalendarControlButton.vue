@@ -20,7 +20,7 @@ const props = defineProps(['icon', 'name', 'isHover'])
   align-items: center;
   justify-content: center;
   border-radius: 20px;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   cursor: pointer;
 }
 .description {

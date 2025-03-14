@@ -169,29 +169,33 @@ let heatmap2 = computed(() => initHeatmap(props.half + 184, props.half))
 </template>
 
 <style scoped>
-@import url('https://fonts.font.im/css?family=PT+Sans');
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 * {
   user-select: none;
   -webkit-touch-callout: none;
 }
 .calendar {
-  width: 800px;
+  width: 700px;
   border-radius: 15px;
   overflow: hidden;
   font-family: 'PT Sans';
+  font-weight: 700;
   transition: all 0.3s ease;
+  margin-bottom: 20px;
 }
 .calendar-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 15px;
+  padding: 15px;
   background-color: #ececec;
 }
 
 .calendar-header .small {
   font-size: 1.2rem;
   margin-left: 15px;
+  font-style: italic;
+  opacity: 0.5;
 }
 .calendar-header .big {
   font-size: 2.4rem;
@@ -209,14 +213,14 @@ let heatmap2 = computed(() => initHeatmap(props.half + 184, props.half))
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1.8rem;
+  font-size: 1.5rem;
 }
 
 .calendar-header button {
   border: none;
 }
 .calendar-body {
-  padding: 30px 50px 50px;
+  padding: 20px 45px 45px;
   background-color: #f7f7f7c0;
   backdrop-filter: blur(50px);
 }
@@ -224,15 +228,15 @@ let heatmap2 = computed(() => initHeatmap(props.half + 184, props.half))
 .days {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 20px;
+  gap: 15px;
 }
 .days {
-  margin-top: 25px;
+  margin-top: 15px;
 }
 .day-names div {
   text-align: center;
   font-weight: bold;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   letter-spacing: 3px;
 }
 .days div {
@@ -248,7 +252,7 @@ let heatmap2 = computed(() => initHeatmap(props.half + 184, props.half))
   color: #252525;
   box-shadow: 0 0 10px rgba(57, 57, 57, 0.2);
   /* border: 1px solid #dddddd96; */
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 700;
   position: relative;
   transition: background-color 0.3s ease;

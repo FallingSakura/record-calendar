@@ -70,16 +70,16 @@ function loginout() {
 </template>
 <style scoped>
 .control {
-  width: 500px;
+  /* width: 500px; */
   height: 70px;
   background-color: #ffffff8d;
   border-radius: 1000px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding: 0 18px;
-  margin-top: 5vh;
-  margin-bottom: 30px;
+  padding: 0 15px;
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 
 .control-button {
