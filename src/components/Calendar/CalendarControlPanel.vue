@@ -1,10 +1,12 @@
 <script setup>
-import ControlButton from './CalendarControlButton.vue'
+import ControlButton from '@/components/calendar/CalendarControlButton.vue'
 import { useRouter } from 'vue-router'
-import { computed, ref } from 'vue'
+import { computed, ref, onMounted } from 'vue'
 import { useAuthStore } from '@/stores/authStore'
 const authStore = useAuthStore()
-authStore.initialize()
+onMounted(() => {
+  authStore.initialize()
+})
 const router = useRouter()
 const props = defineProps(['reset', 'status', 'toggleStatus'])
 const buttons = {

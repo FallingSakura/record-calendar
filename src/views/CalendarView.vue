@@ -1,9 +1,9 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import axios from 'axios'
-import Calendar from '../components/Calendar/CalendarCmp.vue'
-import ControlPanel from '../components/Calendar/CalendarControlPanel.vue'
-import UserPanel from '../components/Calendar/CalendarUserPanel.vue'
+import ControlPanel from '@/components/calendar/CalendarControlPanel.vue'
+import Calendar from '@/components/calendar/CalendarCmp.vue'
+import UserPanel from '@/components/calendar/CalendarUserPanel.vue'
 import { useAuthStore } from '@/stores/authStore'
 import { useRouter } from 'vue-router'
 const authStore = useAuthStore()
@@ -26,10 +26,9 @@ function isTokenExpired(token) {
 function authorize(token) {
   if (isTokenExpired(token)) {
     authStore.logout()
-    alert('Token Expired! You\'re Logout now.')
-    return false;
-  }
-  else return true
+    alert("Token Expired! You're Logout now.")
+    return false
+  } else return true
 }
 
 async function getUserData() {
@@ -245,7 +244,7 @@ function getFontColor(index) {
 <template>
   <div class="body">
     <div class="container">
-      <!-- <UserPanel /> -->
+      <UserPanel />
       <ControlPanel
         :reset="reset"
         :status="status"
@@ -282,6 +281,12 @@ function getFontColor(index) {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.container {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  width: 700px;
 }
 
 @media (max-width: 1100px) {
