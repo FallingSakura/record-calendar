@@ -65,6 +65,15 @@ onMounted(async () => {
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+.user-container {
+  display: flex;
+  align-items: center;
+  height: 70px;
+  gap: 10px;
+  background-color: #ffffff8d;
+  border-radius: 1000px;
+  padding: 5px 10px;
+}
 .avatar {
   width: 50px;
   height: 50px;
@@ -92,13 +101,9 @@ onMounted(async () => {
   align-self: stretch;
   margin-right: 15px;
 }
-.user-container {
-  display: flex;
-  align-items: center;
-  height: 70px;
-  gap: 10px;
-  background-color: #ffffff8d;
-  border-radius: 1000px;
-  padding: 5px 10px;
+@media (max-width: 600px) {
+  .user-container {
+    transform: scale(0.9);
+  }
 }
 </style>

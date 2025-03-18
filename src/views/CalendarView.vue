@@ -5,9 +5,7 @@ import ControlPanel from '@/components/calendar/CalendarControlPanel.vue'
 import Calendar from '@/components/calendar/CalendarMain.vue'
 import UserPanel from '@/components/calendar/CalendarUserPanel.vue'
 import { useAuthStore } from '@/stores/authStore'
-import { useRouter } from 'vue-router'
 const authStore = useAuthStore()
-const router = useRouter()
 
 const date = ref(new Date())
 let dataStore = ref(new Map())
@@ -51,7 +49,7 @@ async function updateData(key, value) {
     const token = localStorage.getItem('token')
     if (!token || !authorize(token)) return
     await axios.put(
-      '/update-data',
+      '/update/data',
       {
         date: key,
         value: value
@@ -287,16 +285,19 @@ function getFontColor(index) {
   align-items: center;
   gap: 25px;
   width: 700px;
+  margin: 20px 0;
 }
-
-@media (max-width: 1100px) {
-  .control {
-    width: 300px;
+@media (max-width: 1024px) {
+  .container {
+    width: 600px;
   }
 }
 @media (max-width: 600px) {
-  .control {
-    transform: scale(0.9);
+  .container {
+    width: 300px;
+    flex-direction: column;
+    gap: 10px;
+    margin: 15px 0;
   }
 }
 </style>

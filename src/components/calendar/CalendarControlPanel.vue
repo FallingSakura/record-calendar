@@ -80,8 +80,6 @@ function loginout() {
   align-items: center;
   justify-content: flex-start;
   padding: 0 15px;
-  margin-top: 15px;
-  margin-bottom: 15px;
 }
 
 .control-button {
@@ -90,5 +88,16 @@ function loginout() {
 
 .control-button i {
   transition: all 1s ease;
+}
+
+@media (max-width: 1024px) {
+  .control {
+    width: 300px;
+  }
+}
+@media (max-width: 600px) {
+  .control {
+    transform: scale(0.9);
+  }
 }
 </style>

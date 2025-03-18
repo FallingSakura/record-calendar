@@ -5,7 +5,7 @@ const props = defineProps(['icon', 'name', 'isHover'])
   <div class="button">
     <i :class="props.icon"></i>
     <transition mode="out-in" name="fade">
-    <span class="description" v-show="props.isHover">{{ props.name }}</span>
+      <span class="description" v-show="props.isHover">{{ props.name }}</span>
     </transition>
   </div>
 </template>
@@ -24,9 +24,11 @@ const props = defineProps(['icon', 'name', 'isHover'])
   cursor: pointer;
 }
 .description {
+  font-family: 'Poppins';
+  font-weight: 500;
   font-size: 0.6em;
   position: absolute;
-  bottom: -38px;
+  bottom: -40px;
   color: #333333c3;
   background-color: #ffffff8d;
   padding: 5px;

@@ -64,11 +64,11 @@ let heatmap2 = computed(() => initHeatmap(props.half + 184, props.half))
           class="date"
           :key="`${props.year}${props.month}`"
         >
-          <h2 class="big title">{{ props.monthNames[month] }}</h2>
-          <h2 class="small title">{{ year }}</h2>
+          <h2 class="month-title">{{ props.monthNames[month] }}</h2>
+          <h2 class="year-title">{{ year }}</h2>
         </div>
         <div class="year-only" v-else-if="props.status === 1" :key="props.year">
-          <h2 class="big title">{{ props.year }}</h2>
+          <h2 class="year-title">{{ props.year }}</h2>
         </div>
       </transition>
       <div class="button" @click="prev">
@@ -85,6 +85,7 @@ let heatmap2 = computed(() => initHeatmap(props.half + 184, props.half))
         </div>
       </transition>
       <transition name="blur" mode="out-in">
+        <!-- Calendar -->
         <div
           v-if="status === 0"
           class="days"
@@ -105,15 +106,15 @@ let heatmap2 = computed(() => initHeatmap(props.half + 184, props.half))
             }"
           >
             {{ day.date.getDate() }}
-            <!-- <small>{{ props.dataStore.get(props.getDateKey(index)) }}</small> -->
           </div>
         </div>
+        <!-- HeatMap -->
         <div
           v-else-if="status === 1"
           :key="props.year"
           class="heatmap-container"
         >
-          <h2 class="heatmap-title title">Jan ~ Jun</h2>
+          <h2 class="heatmap-title">Jan ~ Jun</h2>
           <table class="heatmap">
             <tr v-for="(row, index) in heatmap1" :key="index">
               <td
@@ -138,7 +139,7 @@ let heatmap2 = computed(() => initHeatmap(props.half + 184, props.half))
             </tr>
           </table>
           <div class="line"></div>
-          <h2 class="heatmap-title title">Jul ~ Dec</h2>
+          <h2 class="heatmap-title">Jul ~ Dec</h2>
           <table class="heatmap">
             <tr v-for="(row, index) in heatmap2" :key="index">
               <td
@@ -176,8 +177,7 @@ let heatmap2 = computed(() => initHeatmap(props.half + 184, props.half))
 }
 .calendar {
   width: 700px;
-  border-radius: 15px;
-  overflow: hidden;
+  border-radius: 20px;
   font-family: 'PT Sans';
   font-weight: 700;
   transition: all 0.3s ease;
@@ -189,15 +189,16 @@ let heatmap2 = computed(() => initHeatmap(props.half + 184, props.half))
   align-items: center;
   padding: 15px;
   background-color: #ececec;
+  border-radius: 20px 20px 0 0;
 }
 
-.calendar-header .small {
+.calendar-header .year-title {
   font-size: 1.2rem;
   margin-left: 15px;
   font-style: italic;
   opacity: 0.5;
 }
-.calendar-header .big {
+.calendar-header .month-title {
   font-size: 2.4rem;
   margin-left: 25px;
 }
@@ -221,6 +222,7 @@ let heatmap2 = computed(() => initHeatmap(props.half + 184, props.half))
 }
 .calendar-body {
   padding: 20px 45px 45px;
+  border-radius: 0 0 20px 20px;
   background-color: #f7f7f7c0;
   backdrop-filter: blur(50px);
 }
@@ -251,18 +253,11 @@ let heatmap2 = computed(() => initHeatmap(props.half + 184, props.half))
   background-color: #ffffffa4;
   color: #252525;
   box-shadow: 0 0 10px rgba(57, 57, 57, 0.2);
-  /* border: 1px solid #dddddd96; */
+  border: 1px solid #dddddd96;
   font-size: 1.5rem;
   font-weight: 700;
   position: relative;
   transition: background-color 0.3s ease;
-}
-.days small {
-  position: absolute;
-  top: 3px;
-  right: 6px;
-  font-size: 0.9rem;
-  opacity: 0.6;
 }
 .days .current-day {
   position: relative;
@@ -272,8 +267,8 @@ let heatmap2 = computed(() => initHeatmap(props.half + 184, props.half))
 .current-day::after {
   content: '';
   background-color: rgba(255, 255, 255, 0.915);
-  width: 8px;
-  height: 8px;
+  width: 12px;
+  height: 6px;
   box-shadow: 0 0 8px 1px rgba(187, 187, 187, 0.606);
   border-radius: 99999px;
   position: absolute;
@@ -282,12 +277,13 @@ let heatmap2 = computed(() => initHeatmap(props.half + 184, props.half))
 
 .last-month {
   opacity: 0;
+  cursor: default !important;
 }
 
 .block {
   position: relative;
-  width: 22px;
-  height: 22px;
+  width: 19px;
+  height: 19px;
   background-color: rgba(162, 162, 162, 0.285);
   border-radius: 3px;
   text-align: center;
@@ -298,7 +294,7 @@ let heatmap2 = computed(() => initHeatmap(props.half + 184, props.half))
 }
 .info {
   position: absolute;
-  padding: 5px 10px;
+  padding: 3px 8px;
   background-color: #0000008f;
   color: #fff;
   border-radius: 8px;
@@ -330,7 +326,7 @@ let heatmap2 = computed(() => initHeatmap(props.half + 184, props.half))
   border-radius: 1px;
   background-color: rgba(107, 107, 107, 0.3);
   margin: 45px 0;
-  /* box-shadow: 0 0 5px black; */
+  box-shadow: 0 0 5px black;
 }
 .title {
   cursor: default;
@@ -341,7 +337,7 @@ let heatmap2 = computed(() => initHeatmap(props.half + 184, props.half))
   margin-bottom: 25px;
 }
 
-@media (max-width: 1100px) {
+@media (max-width: 1024px) {
   .calendar {
     width: 600px;
   }
@@ -423,8 +419,13 @@ let heatmap2 = computed(() => initHeatmap(props.half + 184, props.half))
     width: 40px;
     font-size: 1.3rem;
   }
-  .heatmap {
-    transform: scale(0.55);
+  .heatmap-container {
+    margin-top: 0;
+  }
+  .block {
+    width: 13px;
+    height: 13px;
+    font-size: 0.7rem;
   }
   .line {
     width: 95% !important;
