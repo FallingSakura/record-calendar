@@ -2,7 +2,7 @@
 import { ref, computed, onMounted } from 'vue'
 import axios from 'axios'
 import ControlPanel from '@/components/calendar/CalendarControlPanel.vue'
-import Calendar from '@/components/calendar/CalendarCmp.vue'
+import Calendar from '@/components/calendar/CalendarMain.vue'
 import UserPanel from '@/components/calendar/CalendarUserPanel.vue'
 import { useAuthStore } from '@/stores/authStore'
 import { useRouter } from 'vue-router'

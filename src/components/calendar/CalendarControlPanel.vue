@@ -1,5 +1,5 @@
 <script setup>
-import ControlButton from '@/components/calendar/CalendarControlButton.vue'
+import ControlButton from '@/components/control/CalendarControlButton.vue'
 import { useRouter } from 'vue-router'
 import { computed, ref, onMounted } from 'vue'
 import { useAuthStore } from '@/stores/authStore'
@@ -30,8 +30,8 @@ const buttons = {
     icon: computed(() =>
       authStore.isAuthenticated
         ? 'fa-solid fa-right-from-bracket'
-        :'fa-solid fa-user'
-    ), 
+        : 'fa-solid fa-user'
+    ),
     fn: loginout,
     name: computed(() => (authStore.isAuthenticated ? 'Logout' : 'Login')),
     hover: ref(false)
@@ -72,7 +72,7 @@ function loginout() {
 </template>
 <style scoped>
 .control {
-  /* width: 500px; */
+  width: 500px;
   height: 70px;
   background-color: #ffffff8d;
   border-radius: 1000px;
