@@ -9,14 +9,14 @@ onMounted(() => {
 })
 const router = useRouter()
 const props = defineProps(['reset', 'status', 'toggleStatus'])
-const buttons = {
-  0: {
+const buttons = [
+  {
     icon: 'fa-solid fa-location-crosshairs',
     fn: props.reset,
     name: 'Today',
     hover: ref(false)
   },
-  1: {
+  {
     icon: computed(() => {
       return props.status === 0
         ? 'fa-solid fa-toggle-off'
@@ -26,7 +26,7 @@ const buttons = {
     name: 'HeatMap',
     hover: ref(false)
   },
-  2: {
+  {
     icon: computed(() =>
       authStore.isAuthenticated
         ? 'fa-solid fa-right-from-bracket'
@@ -35,8 +35,29 @@ const buttons = {
     fn: loginout,
     name: computed(() => (authStore.isAuthenticated ? 'Logout' : 'Login')),
     hover: ref(false)
+  },
+  {
+    icon: 'fa-solid fa-sun',
+    fn: () => {},
+    name: 'Theme',
+    hover: ref(false)
+  },
+  {
+    icon: 'fa-solid fa-gear',
+    fn: () => {},
+    name: 'Settings',
+    hover: ref(false)
+  },
+  {
+    icon: 'fa-brands fa-github',
+    fn: () => {
+      window.open('https://github.com/FallingSakura/record-calendar')
+    },
+    name: 'Github',
+    hover: ref(false)
   }
-}
+]
+
 function loginout() {
   if (authStore.isAuthenticated) {
     authStore.logout()
@@ -72,7 +93,7 @@ function loginout() {
 </template>
 <style scoped>
 .control {
-  width: 500px;
+  /* width: 500px; */
   height: 70px;
   background-color: #ffffff8d;
   border-radius: 1000px;
@@ -82,7 +103,7 @@ function loginout() {
   padding: 0 15px;
 }
 
-.control-button {
+.control-button:not(:last-child) {
   margin-right: 16px;
 }
 

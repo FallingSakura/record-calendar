@@ -120,7 +120,7 @@ let heatmap2 = computed(() => initHeatmap(props.half + 184, props.half))
               <td
                 v-for="(item, index) in row"
                 :key="index"
-                class="block horizon"
+                class="block"
                 :style="{
                   backgroundColor: props.getBackgroundColor(item.date),
                   color: props.getFontColor(item.date)
@@ -145,7 +145,7 @@ let heatmap2 = computed(() => initHeatmap(props.half + 184, props.half))
               <td
                 v-for="(item, index) in row"
                 :key="index"
-                class="block horizon"
+                class="block"
                 :style="{
                   backgroundColor: props.getBackgroundColor(item.date),
                   color: props.getFontColor(item.date)
@@ -192,13 +192,13 @@ let heatmap2 = computed(() => initHeatmap(props.half + 184, props.half))
   border-radius: 20px 20px 0 0;
 }
 
-.calendar-header .year-title {
+.date .year-title {
   font-size: 1.2rem;
   margin-left: 15px;
   font-style: italic;
   opacity: 0.5;
 }
-.calendar-header .month-title {
+.date .month-title {
   font-size: 2.4rem;
   margin-left: 25px;
 }
@@ -207,6 +207,10 @@ let heatmap2 = computed(() => initHeatmap(props.half + 184, props.half))
   flex: 1;
   display: flex;
   align-items: baseline;
+}
+.year-only .year-title {
+  font-size: 2.2rem;
+  margin-left: 20px;
 }
 .calendar-header .button {
   width: 50px;
@@ -291,6 +295,7 @@ let heatmap2 = computed(() => initHeatmap(props.half + 184, props.half))
   cursor: pointer;
   color: #252525;
   font-size: 0.8rem;
+  writing-mode: horizontal-tb;
 }
 .info {
   position: absolute;
@@ -306,12 +311,17 @@ let heatmap2 = computed(() => initHeatmap(props.half + 184, props.half))
   pointer-events: none;
   white-space: nowrap;
 }
-.horizon {
-  writing-mode: horizontal-tb;
-}
 .heatmap {
   border-spacing: 3px;
   writing-mode: vertical-lr;
+}
+.heatmap-title {
+  font-size: 1.6rem;
+  font-style: italic;
+  color: #222222;
+  letter-spacing: 2px;
+  width: 100%;
+  margin-bottom: 25px;
 }
 .heatmap-container {
   display: flex;
@@ -321,20 +331,11 @@ let heatmap2 = computed(() => initHeatmap(props.half + 184, props.half))
   margin-top: 20px;
 }
 .line {
-  width: 100%;
+  width: calc(100% + 25px);
   height: 1px;
   border-radius: 1px;
   background-color: rgba(107, 107, 107, 0.3);
   margin: 45px 0;
-  box-shadow: 0 0 5px black;
-}
-.title {
-  cursor: default;
-  letter-spacing: 2px;
-}
-.heatmap-title {
-  width: 100%;
-  margin-bottom: 25px;
 }
 
 @media (max-width: 1024px) {

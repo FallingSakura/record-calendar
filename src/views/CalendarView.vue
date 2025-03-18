@@ -272,8 +272,7 @@ function getFontColor(index) {
 </template>
 <style scoped>
 .body {
-  background-color: #6d8696;
-  background-image: linear-gradient(135deg, #71bdbc, #6d8696);
+  background-image: linear-gradient(90deg, #71bdbc, #4b937d);
   min-height: 100vh;
   width: 100vw;
   display: flex;
@@ -282,6 +281,7 @@ function getFontColor(index) {
 }
 .container {
   display: flex;
+  justify-content: space-between;
   align-items: center;
   gap: 25px;
   width: 700px;
