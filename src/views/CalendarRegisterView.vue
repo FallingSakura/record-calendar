@@ -1,11 +1,13 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { useToast } from 'vue-toastification'
 import axios from 'axios'
 const EMAIL = 'Email'
 const NAME = 'Name'
 const PASSWORD = 'Password'
 const REPEAT = 'Repeat Your Password'
+const toast = useToast()
 const email = ref('')
 const password = ref('')
 const name = ref('')
@@ -33,7 +35,7 @@ const register = async () => {
       email: email.value,
       password: password.value
     })
-    console.log("Response: ", response)
+    console.log('Response: ', response)
     router.push('/login')
     alert('Register Successfully!')
   } catch (err) {
@@ -49,7 +51,14 @@ const register = async () => {
       <h1>Register</h1>
       <form @submit.prevent="register" class="form">
         <div class="form-control">
-          <input id="name" type="text" :readonly="isReadonly" @focus="isReadonly = false" v-model="name" required />
+          <input
+            id="name"
+            type="text"
+            :readonly="isReadonly"
+            @focus="isReadonly = false"
+            v-model="name"
+            required
+          />
           <label for="name">
             <span
               v-for="(letter, index) in NAME"
@@ -60,7 +69,14 @@ const register = async () => {
           </label>
         </div>
         <div class="form-control">
-          <input id="email" type="text" :readonly="isReadonly" @focus="isReadonly = false" v-model="email" required />
+          <input
+            id="email"
+            type="text"
+            :readonly="isReadonly"
+            @focus="isReadonly = false"
+            v-model="email"
+            required
+          />
           <label for="email">
             <span
               v-for="(letter, index) in EMAIL"
@@ -71,7 +87,14 @@ const register = async () => {
           </label>
         </div>
         <div class="form-control">
-          <input id="password" type="password" :readonly="isReadonly" @focus="isReadonly = false" v-model="password" required />
+          <input
+            id="password"
+            type="password"
+            :readonly="isReadonly"
+            @focus="isReadonly = false"
+            v-model="password"
+            required
+          />
           <label for="password">
             <span
               v-for="(letter, index) in PASSWORD"
@@ -82,7 +105,14 @@ const register = async () => {
           </label>
         </div>
         <div class="form-control">
-          <input id="repeat" type="password" :readonly="isReadonly" @focus="isReadonly = false" v-model="repeat" required />
+          <input
+            id="repeat"
+            type="password"
+            :readonly="isReadonly"
+            @focus="isReadonly = false"
+            v-model="repeat"
+            required
+          />
           <label for="repeat">
             <span
               v-for="(letter, index) in REPEAT"

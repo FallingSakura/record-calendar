@@ -69,13 +69,11 @@ function loginout() {
         path: '/login'
       })
       toast.success('Logout Successfully!')
-      return
     } catch (err) {
       console.error('Logout Error:', err)
       toast.error('Logout Error!')
     }
-  }
-  router.push('/login')
+  } else router.push('/login')
 }
 </script>
 <template>

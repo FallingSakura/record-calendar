@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/authStore'
 import { useToast } from 'vue-toastification'
+import Loading from '@/components/state/Loading.vue'
 
 const toast = useToast()
 import axios from 'axios'
@@ -41,14 +42,7 @@ const login = async () => {
 </script>
 <template>
   <div class="body">
-    <transition mode="out-in" name="fade">
-      <div class="loading" v-show="isLoading">
-        <div class="loading-box">
-          <i class="fa-solid fa-spinner"></i>
-          <!-- <span>Loading...</span> -->
-        </div>
-      </div>
-    </transition>
+    <loading :isLoading="isLoading" />
     <div class="container">
       <h1>Calendar<br />Login</h1>
       <form @submit.prevent="login" class="form">
@@ -110,32 +104,6 @@ const login = async () => {
   align-items: center;
   justify-content: center;
   font-family: 'SUSE';
-}
-.loading {
-  position: absolute;
-  width: 100vw;
-  height: 100vh;
-  background-color: #0000008c;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2rem;
-  z-index: 10;
-}
-.loading-box {
-  width: 200px;
-  height: 200px;
-  border-radius: 25px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-.loading-box i {
-  font-size: 4rem;
-  color: #6d8696;
-  animation: spin 1.5s linear infinite;
 }
 .container {
   width: 400px;
@@ -261,13 +229,5 @@ input:-internal-autofill-selected {
 .form-control input:valid + label span {
   color: #afe7eb;
   transform: translateY(-30px);
-}
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
 }
 </style>
