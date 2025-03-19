@@ -1,6 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/CalendarView.vue'
 import { useAuthStore } from '../stores/authStore'
+import { useToast } from 'vue-toastification'
+
+const toast = useToast()
 
 function isAuthenticated() {
   const authStore = useAuthStore()
@@ -47,8 +50,8 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (!isAuthenticated()) {
-      alert('Not authenticated')
-      next({ path: '/' })
+      toast.error('Not authenticated')
+      next({ path: '/login', query: { redirect: to.fullPath } })
     } else {
       next()
     }

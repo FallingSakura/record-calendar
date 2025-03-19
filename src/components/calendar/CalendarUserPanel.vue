@@ -25,6 +25,8 @@ onMounted(async () => {
     isLoading.value = true
     const token = localStorage.getItem('token')
     if (!token) {
+      avatar.value = '/favicon.ico'
+      username.value = 'Anonymous'
       return
     }
     avatar.value = localStorage.getItem('avatar') || '/favicon.ico'

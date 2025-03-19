@@ -278,6 +278,8 @@ function getFontColor(index) {
   display: flex;
   flex-direction: column;
   align-items: center;
+  z-index: 1;
+  position: relative;
 }
 .container {
   display: flex;
@@ -286,6 +288,7 @@ function getFontColor(index) {
   gap: 25px;
   width: 700px;
   margin: 20px 0;
+  z-index: 1;
 }
 @media (max-width: 1024px) {
   .container {

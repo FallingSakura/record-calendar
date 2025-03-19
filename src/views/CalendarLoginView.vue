@@ -1,7 +1,10 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { useAuthStore } from '@/stores/authStore';
+import { useAuthStore } from '@/stores/authStore'
+import { useToast } from 'vue-toastification'
+
+const toast = useToast()
 import axios from 'axios'
 const EMAIL = 'Email'
 const PASSWORD = 'Password'
@@ -11,33 +14,53 @@ const authStore = useAuthStore()
 const isReadonly = ref(true)
 const email = ref('')
 const password = ref('')
+const isLoading = ref(false)
 
 const login = async () => {
   try {
+    isLoading.value = true
     const response = await axios.post('/login', {
       email: email.value,
       password: password.value
     })
     const token = response.data.token
     authStore.login(token)
-    router.push('/')
-    alert('Login Succesfully!')
+    const redirectPath = router.currentRoute.value.query?.redirect || '/'
+    router.push(redirectPath)
+    toast.success('Login Succesfully!')
   } catch (err) {
+    const errorMessage = err.response?.data?.message || 'Unknown error occurred'
     console.error('Login Error:', err)
-    alert('Failed to Login.')
+    toast.error(errorMessage)
   } finally {
     email.value = ''
     password.value = ''
+    isLoading.value = false
   }
 }
 </script>
 <template>
   <div class="body">
+    <transition mode="out-in" name="fade">
+      <div class="loading" v-show="isLoading">
+        <div class="loading-box">
+          <i class="fa-solid fa-spinner"></i>
+          <!-- <span>Loading...</span> -->
+        </div>
+      </div>
+    </transition>
     <div class="container">
       <h1>Calendar<br />Login</h1>
       <form @submit.prevent="login" class="form">
         <div class="form-control">
-          <input id="email" type="text" :readonly="isReadonly" @focus="isReadonly = false" v-model="email" required />
+          <input
+            id="email"
+            type="text"
+            :readonly="isReadonly"
+            @focus="isReadonly = false"
+            v-model="email"
+            required
+          />
           <label for="email">
             <span
               v-for="(letter, index) in EMAIL"
@@ -48,7 +71,14 @@ const login = async () => {
           </label>
         </div>
         <div class="form-control">
-          <input id="password" type="password" :readonly="isReadonly" @focus="isReadonly = false" v-model="password" required />
+          <input
+            id="password"
+            type="password"
+            :readonly="isReadonly"
+            @focus="isReadonly = false"
+            v-model="password"
+            required
+          />
           <label for="password">
             <span
               v-for="(letter, index) in PASSWORD"
@@ -71,6 +101,7 @@ const login = async () => {
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=SUSE:wght@100..800&display=swap');
 .body {
+  position: relative;
   background-image: linear-gradient(135deg, #71bdbc, #6d8696);
   min-height: 100vh;
   width: 100vw;
@@ -79,6 +110,32 @@ const login = async () => {
   align-items: center;
   justify-content: center;
   font-family: 'SUSE';
+}
+.loading {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background-color: #0000008c;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  z-index: 10;
+}
+.loading-box {
+  width: 200px;
+  height: 200px;
+  border-radius: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.loading-box i {
+  font-size: 4rem;
+  color: #6d8696;
+  animation: spin 1.5s linear infinite;
 }
 .container {
   width: 400px;
@@ -117,7 +174,7 @@ const login = async () => {
   user-select: none;
   display: inline-block;
   width: 100%;
-  background: #2980b9;
+  background: #2b8ed0;
   margin-top: 40px;
   padding: 15px;
   font-family: inherit;
@@ -131,7 +188,7 @@ const login = async () => {
   transition: all 0.3s ease;
 }
 .btn:hover {
-  filter: brightness(1.1);
+  filter: brightness(1.05);
 }
 
 .btn:focus {
@@ -204,5 +261,13 @@ input:-internal-autofill-selected {
 .form-control input:valid + label span {
   color: #afe7eb;
   transform: translateY(-30px);
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 </style>

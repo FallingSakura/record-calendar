@@ -3,6 +3,9 @@ import ControlButton from '@/components/control/CalendarControlButton.vue'
 import { useRouter } from 'vue-router'
 import { computed, ref, onMounted } from 'vue'
 import { useAuthStore } from '@/stores/authStore'
+import { useToast } from 'vue-toastification'
+
+const toast = useToast()
 const authStore = useAuthStore()
 onMounted(() => {
   authStore.initialize()
@@ -60,10 +63,17 @@ const buttons = [
 
 function loginout() {
   if (authStore.isAuthenticated) {
-    authStore.logout()
-    router.replace('/')
-    router.go(0)
-    return
+    try {
+      authStore.logout()
+      router.replace({
+        path: '/login'
+      })
+      toast.success('Logout Successfully!')
+      return
+    } catch (err) {
+      console.error('Logout Error:', err)
+      toast.error('Logout Error!')
+    }
   }
   router.push('/login')
 }

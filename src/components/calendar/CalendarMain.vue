@@ -80,7 +80,7 @@ let heatmap2 = computed(() => initHeatmap(props.half + 184, props.half))
     </div>
     <div class="calendar-body">
       <transition name="blur" mode="out-in">
-        <div v-show="status === 0" class="day-names">
+        <div v-if="status === 0" class="day-names">
           <div v-for="day in props.weekDays" :key="day">{{ day }}</div>
         </div>
       </transition>
